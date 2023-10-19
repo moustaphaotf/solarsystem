@@ -5,27 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solar System</title>
     <style>
-        body{
+        body {
             margin: 0;
             height: 100vh;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            flex-direction: column; /* To stack header, stars, content, and footer vertically */
             background-color: black;
             overflow: hidden;
         }
 
-        .container{
+        header {
+            background-color: #111;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            animation: twinkle 5s linear infinite, move-stars 20s linear infinite;
+            background-image: url('https://example.com/star-background.jpg'); /* Replace with your star image URL */
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            width: 2px;
+            height: 2px;
+            opacity: 0.8;
+        }
+
+        .container {
             font-size: 10px;
             width: 40em;
             height: 40em;
             position: relative;
+            margin: auto;
+            margin-top: 2rem; /* Add spacing between header and content */
         }
 
         .sun {
             position: absolute;
-            top: 15em;
-            left: 15em;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 10em;
             height: 10em;
             background-color: yellow;
@@ -34,7 +60,6 @@
         }
 
         .earth, .moon {
-            top: 0;
             position: absolute;
             border-radius: 50%;
             border-style: solid;
@@ -43,16 +68,14 @@
         }
 
         .earth {
-            top: 50%;
-            left: 50%;
-            /* transform: translate(-50%, -50%); */
+            top: 8%;
+            left: 10%;
             width: 30em;
             height: 30em;
-            animation: orbit 36.5s linear infinite;
+            animation: orbit 3.5s linear infinite;
         }
 
         .moon {
-            top: 0;
             right: 0;
             width: 8em;
             height: 8em;
@@ -65,8 +88,8 @@
             position: absolute;
             border-radius: 50%;
         }
- tm
-        .earth::before{
+
+        .earth::before {
             top: 2.8em;
             right: 2.8em;
             width: 3em;
@@ -87,15 +110,58 @@
                 transform: rotate(360deg);
             }
         }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes move-stars {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 100% 100%;
+            }
+        }
+
+        footer {
+            background-color: #111;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
+    <header>
+        <h1>Welcome to the Solar System</h1>
+    </header>
+    <div class="stars">
+        <!-- Generate stars dynamically -->
+        <script>
+            const starsContainer = document.querySelector('.stars');
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                starsContainer.appendChild(star);
+            }
+        </script>
+    </div>
     <div class="container">
-        <div class="sun">
-            <div class="earth">
-                <div class="moon"></div>
-            </div>
+        <div class="sun"></div>
+        <div class="earth">
+            <div class="moon"></div>
         </div>
     </div>
+    <footer>
+        <p>&copy; 2023 Solar System Exploration</p>
+    </footer>
 </body>
 </html>
